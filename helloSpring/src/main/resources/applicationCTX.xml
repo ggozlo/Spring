@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="sampleCal" class="com.ggozlo.core.SampleCal">
+	<property name="first" value="15" />
+	<property name="second" value="25" />
+</bean>
+
+<bean id="scoreDTO" class="com.ggozlo.core.ScoreDTO">
+	<constructor-arg>
+		<value>한라산</value>
+	</constructor-arg>
+	<constructor-arg>
+		<value>99</value>
+	</constructor-arg>
+	<constructor-arg>
+		<value>99</value>
+	</constructor-arg>
+	<constructor-arg>
+		<value>98</value>
+	</constructor-arg>
+</bean>
+
+<bean id="test" class="com.ggozlo.core.Test">
+	<property name="high">
+		<value>90</value>
+	</property>
+	<property name="medium">
+		<value>75</value>
+	</property>
+	<property name="low">
+		<value>65</value>
+	</property>
+</bean>
+
+<bean id="writeTool" class="com.ggozlo.core.writeTool.Ballpen" />
+
+<bean id="salary"  class="com.ggozlo.core.sal.Salary">
+	<constructor-arg value="7000" />
+	<constructor-arg value="5000" />
+	<constructor-arg value="3000" />
+	
+</bean>
+
+<bean id="member1"  class="com.ggozlo.core.member.Member">
+	<constructor-arg value="java" />
+	<constructor-arg value="spring" />
+	<constructor-arg value="홍길동" />
+	<constructor-arg value="010-4567-8975" />
+</bean>
+<bean id="member2"  class="com.ggozlo.core.member.Member">
+	<constructor-arg value="python" />
+	<constructor-arg value="django" />
+	<constructor-arg value="허생" />
+	<constructor-arg value="010-9876-5432" />
+</bean>
+
+<bean id="product1"  class="com.ggozlo.core.goods.Product">
+	<property name="name" value="cookie" />
+	<property name="quantity" value="1003" />
+	<property name="price" value="5000" />
+</bean>
+<bean id="product2"  class="com.ggozlo.core.goods.Product">
+	<constructor-arg value="bread" />
+	<constructor-arg value="500" />
+	<constructor-arg value="12500" />
+</bean>
+
+
+</beans>
