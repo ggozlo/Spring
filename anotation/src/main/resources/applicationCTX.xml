@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="scoreA" class="com.ggozlo.core.Score">
+		<constructor-arg value="StudentA" />
+		<constructor-arg value="12" />
+		<constructor-arg value="23" />
+		<constructor-arg value="34" />
+	</bean>
+	
+	<bean id="scoreB" class="com.ggozlo.core.Score">
+		<property name="name" value="StudentB" />
+		<property name="mat" value="56" />
+		<property name="eng" value="34" />
+		<property name="kor" value="12" />
+	</bean>
+	
+	<bean id="scoreC" class="com.ggozlo.core.Score" c:name="StudentC" p:kor="14" p:eng="25" p:mat="36" />
+		
+	<bean id="personal" class="com.ggozlo.core.example2.Personal">
+		<property name="name">
+			<value>홍길동</value>
+		</property>
+		
+		<property name="age">
+			<value>25</value>
+		</property>
+		
+		<property name="hobbies">
+			<list>
+				<value>여행</value>
+				<value>영화</value>
+				<value>맛집</value>
+			</list>
+		</property>
+		
+	</bean>
+
+</beans>
