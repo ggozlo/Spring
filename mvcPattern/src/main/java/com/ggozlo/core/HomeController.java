@@ -14,10 +14,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
 
 /**
  * Handles requests for the application home page.
@@ -116,7 +119,7 @@ public class HomeController {
 		return "score/student";
 	}
 	
-	@RequestMapping("/student2")
+	@RequestMapping(value = "/student2", method = RequestMethod.POST)
 	public ModelAndView sudent2(Score score) {
 		ModelAndView mav = new ModelAndView();
 		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -131,4 +134,6 @@ public class HomeController {
 	{
 		return "score/input";
 	}
+	
+	
 }
