@@ -7,7 +7,7 @@ public class ScoreValidate implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Score.class.equals(clazz);
+		return Score.class.isAssignableFrom(clazz);
 	}
 
 	@Override
