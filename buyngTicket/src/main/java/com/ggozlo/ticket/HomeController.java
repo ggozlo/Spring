@@ -1,16 +1,16 @@
-package com.ggozlo.tra;
+package com.ggozlo.ticket;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,31 +19,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 public class HomeController {
 	
-//	public JdbcTemplate template;
-//	//PlatformTransactionManager transactionManager;
-//	
-//	@Autowired
-//	public void setTemplate(JdbcTemplate jdbcTemplate) {
-//		this.template = jdbcTemplate;
-//		Constant.template = this.template;
-//	}
-	
-	@Autowired
-	ObjectFactory<TicketDAO> factory;
-	
-//	TicketDAO dao ;
-//	
-//	@Autowired
-//	@DependsOn("dao")
-//	public void setDao( TicketDAO dao) {
-//		this.dao = dao;
-//	}
-
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	
+//	private ObjectFactory<OracleTicketRepository> factory ;
+//	
+//	@Autowired
+//	public void setFactory(ObjectFactory<OracleTicketRepository> factory) {
+//		this.factory = factory;
+//	}
+	
+	private OracleTicketRepository repository;
+	
+	@Autowired
+	public void setOracleTicketRepository(OracleTicketRepository oracleTicketRepository) {
+		this.repository = oracleTicketRepository;
+	}
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -66,22 +62,17 @@ public class HomeController {
 		return "form";
 	}
 	
-	@RequestMapping("/buyTicketCard")
-	public String buyTicket(Ticket ticket, Model model) {
-		//TicketDAO dao = context.getBean(TicketDAO.class);
-	//	dao.buyCard(ticket);
-//		try {
-//			dao.buyTicket(ticket);
-//		} 
-//		catch (Exception e) {
-//			return "redirect:form";
-//		}
-		
-		TicketDAO dao =  factory.getObject();
-		dao.buyTicket(ticket);
-		
+	@RequestMapping("/ticketBuy")
+	public String ticketBuy(Ticket ticket, Model model) {
+		//OracleTicketRepository repository = factory.getObject();
+		repository.tickeyBuy(ticket);
 		model.addAttribute(ticket);
-		
-		return "buyTicketOut";
+		return "print";
+	}
+	
+	@RequestMapping("/ticketList")
+	public String ticketMap(Model model) throws SQLException {
+		model.addAttribute("list",repository.ticketList());
+		return "list";
 	}
 }

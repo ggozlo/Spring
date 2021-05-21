@@ -13,66 +13,66 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @Repository
 public class TicketDAO {
 	
 	private  JdbcTemplate jdbcTemplate;
-	private  PlatformTransactionManager transactionManager ;
-	
+	//private  PlatformTransactionManager transactionManager ;
+	private TransactionTemplate tranTemplate;
 	
 	@Autowired
-	public TicketDAO(JdbcTemplate jdbcTemplate, PlatformTransactionManager transactionManager) {
+	public TicketDAO(JdbcTemplate jdbcTemplate, TransactionTemplate tranTemplate) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
-		this.transactionManager = transactionManager;
+		this.tranTemplate = tranTemplate;
 	}
+	
 	
 
 	public void buyTicket( final Ticket ticket) {
-		TransactionDefinition definition = new DefaultTransactionDefinition();
-		TransactionStatus status = transactionManager.getTransaction(definition);
-		try {
+//		TransactionDefinition definition = new DefaultTransactionDefinition();
+//		TransactionStatus status = transactionManager.getTransaction(definition);
+		tranTemplate.execute(new TransactionCallbackWithoutResult() {
 			
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				jdbcTemplate.update(
-					new PreparedStatementCreator() 
-					{
-						@Override
-						public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-							PreparedStatement psmt;
-							String sql = "INSERT INTO CARD VALUES (?,?)";
-							psmt = con.prepareStatement(sql);
-							psmt.setString(1, ticket.getIdNumber() );
-							psmt.setInt(2, ticket.getTicketCount() );
-							return psmt;
+						new PreparedStatementCreator() 
+						{
+							@Override
+							public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+								PreparedStatement psmt;
+								String sql = "INSERT INTO CARD VALUES (?,?)";
+								psmt = con.prepareStatement(sql);
+								psmt.setString(1, ticket.getIdNumber() );
+								psmt.setInt(2, ticket.getTicketCount() );
+								return psmt;
+							}
 						}
-					}
-				);
-		
-				jdbcTemplate.update(
-					new PreparedStatementCreator() {
-						@Override
-						public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-							PreparedStatement psmt;
-							String sql = "INSERT INTO TICKET VALUES (?,?)";
-							psmt = con.prepareStatement(sql);
-							psmt.setString(1, ticket.getIdNumber() );
-							psmt.setInt(2, ticket.getTicketCount() );
-							return psmt;
+					);
+			
+					jdbcTemplate.update(
+						new PreparedStatementCreator() {
+							@Override
+							public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+								PreparedStatement psmt;
+								String sql = "INSERT INTO TICKET VALUES (?,?)";
+								psmt = con.prepareStatement(sql);
+								psmt.setString(1, ticket.getIdNumber() );
+								psmt.setInt(2, ticket.getTicketCount() );
+								return psmt;
+							}
 						}
-					}
-				);
-				transactionManager.commit(status);
-				
-		}
-		catch (Exception e) {
-			transactionManager.rollback(status);
-		}
-
-	}
-
-
-
+					);
+			
+			}
+		});
 		
+
+
+	}//메소드 종료
 	
-}
+}//클래스 종료
