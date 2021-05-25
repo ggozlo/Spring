@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ggozlo.mybatis.CreditRepository" >
+
+	<insert id="addCredit" parameterType="com.ggozlo.mybatis.Credit">
+		INSERT INTO CREDIT VALUES ( #{name}, #{tel}, #{address} )
+	</insert>
+	
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM CREDIT WHERE NAME = #{name}
+	</delete>
+	
+	<select id="creditList" resultType="com.ggozlo.mybatis.Credit">
+		SELECT * FROM CREDIT ORDER BY NAME
+	</select>
+	
+</mapper>

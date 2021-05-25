@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ggozlo.myboard.Interface">
+	<select id="list" resultType="com.ggozlo.myboard.DTO">
+		SELECT * FROM MYBOARD ORDER BY NUM DESC
+	</select>
+	
+	<insert id="write">
+		INSERT INTO MYBOARD(NUM, NAME, CONTENT) VALUES (MYBOARD_SEQ.NEXTVAL,#{param1},#{param2} ) 
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM MYBOARD WHERE NUM = #{param1}
+	</delete>
+</mapper>
