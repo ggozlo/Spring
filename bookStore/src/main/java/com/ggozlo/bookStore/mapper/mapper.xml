@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.ggozlo.bookStore.repository.BookRepository">
+    	
+    	
+    	<select id="findAll" resultType="com.ggozlo.bookStore.DTO.Book">
+    		SELECT * FROM BOOKSTORE ORDER BY SERIAL
+    	</select>
+    	
+    	<select id="findOne" parameterType="String" resultType="com.ggozlo.bookStore.DTO.Book">
+    		SELECT * FROM BOOKSTORE WHERE SERIAL = #{serial}
+    	</select>
+    	
+    	
+    	<update id="updateBook" parameterType="com.ggozlo.bookStore.DTO.Book">
+    		UPDATE BOOKSTORE SET 
+    		NAME = #{name}, AUTHOR = #{author}, PRICE = #{price}, IMAGE = #{image}
+    		WHERE SERIAL = #{serial}
+    	</update>
+    	
+    
+    	<delete id="DeleteOne" parameterType="String">
+    		DELETE BOOKSTORE WHERE SERIAL = #{serial}
+    	</delete>
+    	
+    	
+    	<insert id="saveBook" parameterType="com.ggozlo.bookStore.DTO.Book">
+    		INSERT INTO BOOKSTORE VALUES (#{serial}, #{name}, #{author}, #{price}, #{image} )
+    	</insert>
+    	
+    </mapper>
